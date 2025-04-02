@@ -1,0 +1,119 @@
+{% extends "base.html" %}
+
+{% block "title" %}Character{% endblock %}
+
+{% block "content" %}
+{% if character.image %}
+    <img class="card-img-top" style="max-width: 700px" src="{{ character.image.url }}">
+{% endif %}
+<div class="display-5 pb-5">{{ character.name }}</div>
+<ul class="pt-2">
+    <li><strong>Gender: </strong>{{ character.gender }}</li>
+    <li><strong>Age: </strong>{{ character.age }}</li>
+    <li><strong>Birthday: </strong>{{ character.birthday }}</li>
+    <li><strong>Species: </strong><a href="{% url 'species' character.species.pk %}">{{ character.species }}</a></li>
+    <li><strong>Setting: </strong><a href="{% url 'setting' character.setting.pk %}">{{ character.setting }}</a></li>
+    {% if character.group_role and character.groups %}
+        <li><strong>Group role and Group: </strong>{{ character.group_role }} of <a href="{% url 'group' character.groups.pk %}">{{ character.groups }}</a></li>
+    {% endif %}
+    {% if character.variant_of_character %}
+    <li><strong>Variant of...: </strong><a href="{% url 'character' character.variant_of_character.pk %}">{{ character.variant_of_character }}</a></li>
+    {% endif %}
+    <li>
+        <strong>Created by: </strong>
+        <img class="rounded-circle account-img" style="width: 30px" src="{{ character.created_by.profile.photo.url }}" alt="">
+        {{ character.created_by }}
+    </li>
+</ul>
+
+<br>
+{% if character.created_by == user %}
+    <div>
+        <a class="btn btn-outline-info m-2" href="{% url 'character_update' character.pk %}">Edit</a>
+        <a class="btn btn-outline-warning m-2" href="{% url 'character_delete' character.pk %}">Delete</a>
+    </div>
+{% endif %}
+{% endblock %}
+
+{% block "content2" %}
+<div class="container-fluid pt-4 px-4">
+                <div class="row g-4">
+                    <div class="col-sm-12">
+                        <div class="bg-secondary rounded p-4">
+                            <div class="d-flex flex-column align-items-center justify-content-between mb-4">
+
+                                <div class="display-6 pb-3">Appearance:</div>
+                                {{ character.appearance }}
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+</div>
+{% endblock %}
+{% if character.occupation or character.hobbies %}
+{% block "content3" %}
+<div class="container-fluid pt-4 px-4">
+                <div class="row g-4">
+                    <div class="col-sm-12">
+                        <div class="bg-secondary rounded p-4">
+                            <div class="d-flex flex-column align-items-center justify-content-between mb-4">
+                                {% if character.occupation and character.hobbies %}
+                                <div class="display-6 pb-3">Occupation:</div>
+                                {{ character.occupation }}
+                                <br>
+                                <div class="display-6 pb-3">Hobbies:</div>
+                                {{ character.hobbies }}
+                                {% endif %}
+                                {% if character.occupation and not character.hobbies %}
+                                <div class="display-6 pb-3">Occupation:</div>
+                                {{ character.occupation }}
+                                {% endif %}
+                                {% if character.hobbies and not character.occupation %}
+                                <div class="display-6 pb-3">Hobbies:</div>
+                                {{ character.hobbies }}
+                                {% endif %}
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+</div>
+{% endblock %}
+{% endif %}
+
+{% block "content4" %}
+<div class="container-fluid pt-4 px-4">
+                <div class="row g-4">
+                    <div class="col-sm-12">
+                        <div class="bg-secondary rounded p-4">
+                            <div class="d-flex flex-column align-items-center justify-content-between mb-4">
+
+                                <div class="display-6 pb-3">Backstory:</div>
+                                {{ character.backstory }}
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+</div>
+{% endblock %}
+
+{% block "content5" %}
+<div class="container-fluid pt-4 px-4">
+                <div class="row g-4">
+                    <div class="col-sm-12">
+                        <div class="bg-secondary rounded p-4">
+                            <div class="d-flex flex-column align-items-center justify-content-between mb-4">
+
+                                <div class="display-6 pb-3">Credits:</div>
+                                {{ character.char_credit }}
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+</div>
+{% endblock %}

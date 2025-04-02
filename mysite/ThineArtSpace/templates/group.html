@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+
+{% block "title" %}Group{% endblock %}
+
+{% block "content" %}
+{% if group.image %}
+    <img class="card-img-top" style="max-width: 700px" src="{{ group.image.url }}">
+{% endif %}
+<div class="display-5 pb-5">{{ group.name }}</div>
+<ul class="pt-2">
+    <li><strong>Name: </strong>{{ group.name }}</li>
+    <li><strong>Settings: </strong><a href="{% url 'setting' group.setting.pk %}">{{ group.setting }}</a></li>
+    {% if group.parent_group %}
+    <li><strong>Sub group of... : </strong><a href="{% url 'group' group.parent_group.pk %}">{{ group.parent_group }}</a></li>
+    {% endif %}
+    {% if group.variant_of_group %}
+    <li><strong>Variant group of... : </strong><a href="{% url 'group' group.variant_of_group.pk %}">{{ group.variant_of_group }}</a></li>
+    {% endif %}
+    <li>
+        <strong>Created by:</strong>
+        <img class="rounded-circle account-img" style="width: 30px" src="{{ group.created_by.profile.photo.url }}" alt="">
+         {{ group.created_by }}
+    </li>
+</ul>
+<br>
+{% if group.created_by == user %}
+    <div>
+        <a class="btn btn-outline-info m-2" href="{% url 'group_update' group.pk %}">Edit</a>
+        <a class="btn btn-outline-warning m-2" href="{% url 'group_delete' group.pk %}">Delete</a>
+    </div>
+{% endif %}
+{% endblock %}
+
+{% block "content2" %}
+<div class="container-fluid pt-4 px-4">
+                <div class="row g-4">
+                    <div class="col-sm-12">
+                        <div class="bg-secondary rounded p-4">
+                            <div class="d-flex flex-column align-items-center justify-content-between mb-4">
+
+                                <div class="display-6 pb-3">Description:</div>
+                                {{ group.description }}
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+</div>
+{% endblock %}
+
+
+{% block "content3" %}
+<div class="container-fluid pt-4 px-4">
+                <div class="row g-4">
+                    <div class="col-sm-12">
+                        <div class="bg-secondary rounded p-4">
+                            <div class="d-flex flex-column align-items-center justify-content-between mb-4">
+
+                                <div class="display-6 pb-3">Credits:</div>
+                                {{ group.group_credit }}
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+</div>
+{% endblock %}

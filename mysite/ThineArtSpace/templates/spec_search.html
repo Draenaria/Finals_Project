@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block "title" %}Search results{% endblock %}
+
+{% block "content" %}
+<form action="{% url 'spec_search' %}" class="d-flex" method="get">
+    <input class="form-control me-2" type="text" name="query" placeholder="Search">
+    <button type="submit" class="btn btn-primary m-2">Search</button>
+</form>
+
+{% if query %}
+<div class="display-5 pb-5">Search {{ query }} results:</div>
+{% endif %}
+{% if specs %}
+    {% for spec in specs %}
+        <a href="{% url 'species' spec.pk %}"><p>{{ spec }} - {{ spec.setting }}</p></a>
+    {% endfor %}
+{% else %}
+    <p>No results found.</p>
+{% endif %}
+{% endblock %}

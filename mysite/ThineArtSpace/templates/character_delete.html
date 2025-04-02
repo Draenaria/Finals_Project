@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block "title" %}Character deletion{% endblock%}
+{% block "content" %}
+<div class="content-section">
+    <form method="POST">
+        {% load crispy_forms_tags %}
+        {% csrf_token %}
+        <fieldset class="form-group">
+        <legend class="border-bottom mb-4">Delete character</legend>
+            <h2>Do you truly want to delete character "{{ character }}"?</h2>
+        </fieldset>
+        <div class="form-group">
+            <button class="btn btn-outline-danger" type="submit">Yes, delete</button>
+            <a class="btn btn-outline-secondary" href="{% url 'character' character.pk %}">Cancel</a>
+        </div>
+    </form>
+</div>
+{% endblock %}

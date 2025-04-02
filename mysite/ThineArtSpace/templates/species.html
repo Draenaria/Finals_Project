@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+
+{% block "title" %}Species{% endblock %}
+
+{% block "content" %}
+{% if species.image %}
+    <img class="card-img-top" style="max-width: 700px" src="{{ species.image.url }}">
+{% endif %}
+<div class="display-5 pb-5">{{ species.name }}</div>
+<ul class="pt-2">
+    <li><strong>Name: </strong>{{ species.name }}</li>
+    <li><strong>Setting: </strong><a href="{% url 'setting' species.setting.pk %}">{{ species.setting }}</a></li>
+    {% if species.parent_species %}
+    <li><strong>Subspecies of...: </strong><a href="{% url 'species' species.parent_species.pk %}">{{ species.parent_species }}</a></li>
+    {% endif %}
+    {% if species.variant_of_species %}
+    <li><strong>Variant of...: </strong><a href="{% url 'species' species.variant_of_species.pk %}">{{ species.variant_of_species }}</a></li>
+    {% endif %}
+    <li>
+        <strong>Created by:</strong>
+        <img class="rounded-circle account-img" style="width: 30px" src="{{ species.created_by.profile.photo.url }}" alt="">
+         {{ species.created_by }}
+    </li>
+</ul>
+<br>
+{% if species.created_by == user %}
+    <div>
+        <a class="btn btn-outline-info m-2" href="{% url 'species_update' species.pk %}">Edit</a>
+        <a class="btn btn-outline-warning m-2" href="{% url 'species_delete' species.pk %}">Delete</a>
+    </div>
+{% endif %}
+{% endblock %}
+
+{% block "content2" %}
+<div class="container-fluid pt-4 px-4">
+                <div class="row g-4">
+                    <div class="col-sm-12">
+                        <div class="bg-secondary rounded p-4">
+                            <div class="d-flex flex-column align-items-center justify-content-between mb-4">
+
+                                <div class="display-6 pb-3">Appearance:</div>
+                                {{ species.appearance }}
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+</div>
+{% endblock %}
+
+{% block "content3" %}
+<div class="container-fluid pt-4 px-4">
+                <div class="row g-4">
+                    <div class="col-sm-12">
+                        <div class="bg-secondary rounded p-4">
+                            <div class="d-flex flex-column align-items-center justify-content-between mb-4">
+
+                                <div class="display-6 pb-3">Description:</div>
+                                {{ species.description }}
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+</div>
+{% endblock %}
+
+{% block "content4" %}
+<div class="container-fluid pt-4 px-4">
+                <div class="row g-4">
+                    <div class="col-sm-12">
+                        <div class="bg-secondary rounded p-4">
+                            <div class="d-flex flex-column align-items-center justify-content-between mb-4">
+
+                                <div class="display-6 pb-3">Credits:</div>
+                                {{ species.spec_credit }}
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+</div>
+{% endblock %}

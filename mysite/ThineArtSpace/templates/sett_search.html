@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block "title" %}Search results{% endblock %}
+
+{% block "content" %}
+<form action="{% url 'sett_search' %}" class="d-flex" method="get">
+    <input class="form-control me-2" type="text" name="query" placeholder="Search">
+    <button type="submit" class="btn btn-primary m-2">Search</button>
+</form>
+
+{% if query %}
+<div class="display-5 pb-5">Search {{ query }} results:</div>
+{% endif %}
+{% if setts %}
+    {% for sett in setts %}
+        <a href="{% url 'setting' sett.pk %}"><p>{{ sett }}</p></a>
+    {% endfor %}
+{% else %}
+    <p>No results found.</p>
+{% endif %}
+{% endblock %}

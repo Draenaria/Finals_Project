@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block "title" %}Character creation/editing{% endblock%}
+
+{% block "content" %}
+
+<div class="content-section">
+    <form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    {% load crispy_forms_tags %}
+        <legend class="border-bottom mb-4">Character creation/editing</legend>
+        {{ form|crispy }}
+        <div class="form-group">
+            <button class="btn btn-lg btn-primary m-2" type="submit">Save</button>
+        </div>
+    </form>
+</div>
+{% endblock %}

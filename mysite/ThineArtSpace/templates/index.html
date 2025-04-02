@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block "title" %}HOME{% endblock %}
+
+{% block "content" %}
+<div class="display-6">Welcome! We have...</div>
+<ul class="pt-2">
+    <li><strong>{{ num_settings }}  settings,</strong></li>
+    <li><strong>{{ num_groups }}    groups,</strong></li>
+    <li><strong>{{ num_characters }}    characters,</strong></li>
+    <li><strong>{{ num_species }}    species,</strong></li>
+</ul>
+<div class="display 8">...made by {{ num_users }} users!</div>
+{% endblock %}

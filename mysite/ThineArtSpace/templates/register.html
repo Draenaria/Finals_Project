@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block "title" %}Registration{% endblock %}
+
+{% block "content" %}
+
+    <div class="container register">
+        <h3>Registration</h3><br/>
+        <form method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input name="username" type="text" class="form-control" id="username" aria-describedby="usernameHelp" required>
+                <small id="usernameHelp" class="form-text text-muted">Up to 150 characters.</small>
+            </div>
+            <div class="form-group">
+                <label for="exampleInputEmail1">Email</label>
+                <input name="email" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" required>
+                <small id="emailHelp" class="form-text text-muted">We won't share this information with anyone, nor will we send anything.
+                    This will ONLY be used for password related protocols.</small>
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input name="password" type="password" class="form-control" id="password" aria-describedby="pwdHelp" required>
+                <small id="pwdHelp" class="form-text text-muted">No less than 8 characters.
+                    Cannot be only numeric.</small>
+            </div>
+            <div class="form-group">
+                <label for="password2">Repeat password</label>
+                <input name="password2" type="password" class="form-control" id="password2" aria-describedby="pwd2Help" required>
+            </div>
+            <button type="submit" class="btn btn-primary register-button">Register</button>
+        </form>
+        <p>If you have already registered, <a href="{% url 'login' %}"><strong>login.</strong></a></p>
+    </div>
+
+{% endblock %}

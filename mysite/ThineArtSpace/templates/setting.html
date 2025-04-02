@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+
+{% block "title" %}Setting{% endblock %}
+
+{% block "content" %}
+<div class="display-5 pb-5">{{ setting.name }}</div>
+<ul class="pt-2">
+    <li><strong>Name: </strong>{{ setting.name }}</li>
+    {% if setting.parent_setting %}
+    <li><strong>Subsetting of...: </strong><a href="{% url 'setting' setting.parent_setting.pk %}">{{ setting.parent_setting }}</a></li>
+    {% endif %}
+    {% if setting.variant_of_setting %}
+    <li><strong>Variant of...: </strong><a href="{% url 'setting' setting.variant_of_setting.pk %}">{{ setting.variant_of_setting }}</a></li>
+    {% endif %}
+    <li>
+        <strong>Created by:</strong>
+        <img class="rounded-circle account-img" style="width: 30px" src="{{ setting.created_by.profile.photo.url }}" alt="">
+         {{ setting.created_by }}
+    </li>
+</ul>
+<br>
+{% if setting.created_by == user %}
+    <div>
+        <a class="btn btn-outline-info m-2" href="{% url 'setting_update' setting.pk %}">Edit</a>
+        <a class="btn btn-outline-warning m-2" href="{% url 'setting_delete' setting.pk %}">Delete</a>
+    </div>
+{% endif %}
+{% endblock %}
+
+{% block "content2" %}
+<div class="container-fluid pt-4 px-4">
+                <div class="row g-4">
+                    <div class="col-sm-12">
+                        <div class="bg-secondary rounded p-4">
+                            <div class="d-flex flex-column align-items-center justify-content-between mb-4">
+
+                                <div class="display-6 pb-3">Description:</div>
+                                {{ setting.description }}
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+</div>
+{% endblock %}
+{% block "content3" %}
+<div class="container-fluid pt-4 px-4">
+                <div class="row g-4">
+                    <div class="col-sm-12">
+                        <div class="bg-secondary rounded p-4">
+                            <div class="d-flex flex-column align-items-center justify-content-between mb-4">
+
+                                <div class="display-6 pb-3">Credits:</div>
+                                {{ setting.sett_credit }}
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+</div>
+{% endblock %}
