@@ -75,7 +75,6 @@ def register(request):
                 messages.error(request, f'Username {username} is taken!')
                 return redirect('register')
             else:
-                # tikriname, ar nėra tokio pat email
                 if User.objects.filter(email=email).exists():
                     messages.error(request, f'Username with the email {email} is already registered!')
                     return redirect('register')
@@ -86,8 +85,6 @@ def register(request):
                         for error in e:
                             messages.error(request, error)
                         return redirect('register')
-
-                    # jeigu viskas tvarkoje, sukuriame naują vartotoją
                     User.objects.create_user(username=username, email=email, password=password)
                     messages.info(request, f'Username {username} is already registered!')
                     return redirect('login')
@@ -324,7 +321,7 @@ class GroupDeleteView(LoginRequiredMixin, UserPassesTestMixin, generic.DeleteVie
     model = Group
     template_name = 'group_delete.html'
     success_url = "/ThineArtSpace/groups/"
-    context_object_name = "groups"
+    context_object_name = "group"
 
     def test_func(self):
         return self.get_object().created_by == self.request.user
